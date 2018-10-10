@@ -1,5 +1,4 @@
 package it.sevenbits;
-
 public class HelloWorld {
 
     public static void main(String[] args) {
