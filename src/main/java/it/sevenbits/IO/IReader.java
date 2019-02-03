@@ -2,7 +2,7 @@ package it.sevenbits.IO;
 
 import java.io.IOException;
 
-interface IReader {
+public interface IReader {
 
     char read() throws IOException;
 

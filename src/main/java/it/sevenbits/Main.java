@@ -1,10 +1,8 @@
 package it.sevenbits;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import it.sevenbits.IO.*;
 
-import it.sevenbits.IO.FileReader;
-import it.sevenbits.IO.FileWritter;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -14,6 +12,13 @@ public class Main {
         FileWritter out = new FileWritter("pom1.xml");
         while(in.hasNext()) {
             out.write(in.read());
+        }
+
+        IReader e = new StringReader("12345667890абсвгдеЁabcdefg");
+        StringWritter r = new StringWritter();
+
+        while(e.hasNext()) {
+            r.write(e.read());
         }
 
     }
