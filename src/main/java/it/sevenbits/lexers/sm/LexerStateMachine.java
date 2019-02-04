@@ -22,6 +22,7 @@ import java.util.Map;
  *
  */
 public class LexerStateMachine  implements ILexer {
+    private int tokenNumber;
     private List<IToken> tokens;
     private CharTokenMap charsMap;
     List<IToken> charsTokens;
@@ -31,6 +32,7 @@ public class LexerStateMachine  implements ILexer {
     private Map<Pair<String, String>, ILexemCombiner> combs;
 
     public LexerStateMachine(IReader in) throws IOException {
+        tokenNumber = 0;
         tokens = new LinkedList<>();
         charsTokens = new LinkedList<>();
         charsMap = new CharTokenMap();
@@ -59,9 +61,6 @@ public class LexerStateMachine  implements ILexer {
         for (IToken charToken : charsTokens) {
             buff.add(charToken);
             currentState = stateMap.getNextState(currentState, charToken.getType());
-            System.out.println(tokens.toString());
-            System.out.println(currentState.toString());
-            System.out.println(charToken.getType());
             combs.get(new Pair<>(currentState.toString(), charToken.getType())).execute();
         }
 
@@ -73,13 +72,18 @@ public class LexerStateMachine  implements ILexer {
 
     }
 
+
     @Override
     public IToken nextToken() throws LexerException {
-        return null;
+        if (tokenNumber < tokenNumber) {
+            return tokens.get(tokenNumber++);
+        } else {
+            throw new LexerException("End of tokens");
+        }
     }
 
     @Override
     public boolean hasNextToken() {
-        return false;
+        return tokenNumber < tokenNumber;
     }
 }
