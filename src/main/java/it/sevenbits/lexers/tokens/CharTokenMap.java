@@ -14,11 +14,12 @@ public class CharTokenMap {
         //typeMap.put("\n","END_LINE");
         typeMap.put("{","OPEN_BLOCK");
         typeMap.put("}","END_BLOCK");
+        typeMap.put("\"","QUOTE");
         //typeMap.put("/","SLASH");
         //ypeMap.put("*","STAR");
         //typeMap.put("\0","FILE_END");
         //typeMap.put(".","POINT");
-        //typeMap.put(" ","SPACE");
+        typeMap.put(" ","SPACE");
         //typeMap.put("+","SPECIAL");
         //typeMap.put("-","SPECIAL");
         //typeMap.put("=","SPECIAL");

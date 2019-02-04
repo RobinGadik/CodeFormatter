@@ -8,7 +8,7 @@ import java.util.List;
 public class EndBlockCombiner implements ILexemCombiner {
 
     private List<IToken> tokens;
-    List<IToken> buff;
+    private List<IToken> buff;
 
     public EndBlockCombiner(List<IToken> tokens, List<IToken> buff) {
         this.tokens = tokens;

@@ -3,10 +3,7 @@ package it.sevenbits.lexers.sm;
 import it.sevenbits.IO.IReader;
 import it.sevenbits.lexers.ILexer;
 import it.sevenbits.lexers.LexerException;
-import it.sevenbits.lexers.lexems.CloneCombiner;
-import it.sevenbits.lexers.lexems.EndBlockCombiner;
-import it.sevenbits.lexers.lexems.ILexemCombiner;
-import it.sevenbits.lexers.lexems.OpenBlockCombiner;
+import it.sevenbits.lexers.lexems.*;
 import it.sevenbits.lexers.sm.State;
 import it.sevenbits.lexers.tokens.CharTokenMap;
 import it.sevenbits.lexers.tokens.IToken;
@@ -25,10 +22,10 @@ public class LexerStateMachine  implements ILexer {
     private int tokenNumber;
     private List<IToken> tokens;
     private CharTokenMap charsMap;
-    List<IToken> charsTokens;
-    List<IToken> buff;
+    private List<IToken> charsTokens;
+    private List<IToken> buff;
     private State currentState;
-    StateMap stateMap = new StateMap();
+    private StateMap stateMap = new StateMap();
     private Map<Pair<String, String>, ILexemCombiner> combs;
 
     public LexerStateMachine(IReader in) throws IOException {
@@ -46,14 +43,27 @@ public class LexerStateMachine  implements ILexer {
         combs.put(new Pair<>("CLONE", "CUSTOM"), new CloneCombiner(tokens, buff));
         combs.put(new Pair<>("CLONE", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
         combs.put(new Pair<>("CLONE", "END_BLOCK"), new EndBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("CLONE", "SPACE"), new SpaceCombiner(tokens, buff));
+
+        combs.put(new Pair<>("IGNORE", "CUSTOM"), new CloneCombiner(tokens, buff));
+        combs.put(new Pair<>("IGNORE", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("IGNORE", "END_BLOCK"), new EndBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("IGNORE", "SPACE"), new IgnoreCombiner(tokens, buff));
+
+        combs.put(new Pair<>("SPACE", "CUSTOM"), new CloneCombiner(tokens, buff));
+        combs.put(new Pair<>("SPACE", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("SPACE", "END_BLOCK"), new EndBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("SPACE", "SPACE"), new IgnoreCombiner(tokens, buff));
 
         combs.put(new Pair<>("OPEN_BLOCK", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
         combs.put(new Pair<>("OPEN_BLOCK", "CUSTOM"), new CloneCombiner(tokens, buff));
         combs.put(new Pair<>("OPEN_BLOCK", "END_BLOCK"), new EndBlockCombiner(tokens, buff));
+        combs.put(new Pair<>("OPEN_BLOCK", "SPACE"), new IgnoreCombiner(tokens, buff));
 
         combs.put(new Pair<>("END_BLOCK", "END_BLOCK"), new EndBlockCombiner(tokens, buff));
         combs.put(new Pair<>("END_BLOCK", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
         combs.put(new Pair<>("END_BLOCK", "CUSTOM"), new CloneCombiner(tokens, buff));
+        combs.put(new Pair<>("END_BLOCK", "SPACE"), new IgnoreCombiner(tokens, buff));
 
 
 
@@ -61,6 +71,8 @@ public class LexerStateMachine  implements ILexer {
         for (IToken charToken : charsTokens) {
             buff.add(charToken);
             currentState = stateMap.getNextState(currentState, charToken.getType());
+            //System.out.println(currentState);
+            //System.out.println(buff);
             combs.get(new Pair<>(currentState.toString(), charToken.getType())).execute();
         }
 

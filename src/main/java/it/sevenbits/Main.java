@@ -24,7 +24,7 @@ public class Main {
         }
         System.out.println(r.toString());
 
-        IReader someCode = new StringReader("sadf{f{}f}fsdg{}");
+        IReader someCode = new StringReader(" sad  f{f{} f }fsd g{} ");
         ILexer lex = new LexerStateMachine(someCode);
 
 

@@ -17,15 +17,28 @@ class StateMap {
 
         State openBlock = new State("OPEN_BLOCK");
         State endBlock = new State("END_BLOCK");
+        State spaceUno = new State("SPACE");
+        State ignore = new State("IGNORE");
 
         states.put(new Pair<>(defaultState, "OPEN_BLOCK"), openBlock);
         states.put(new Pair<>(defaultState, "END_BLOCK"), endBlock);
+        states.put(new Pair<>(defaultState, "SPACE"), spaceUno);
+
+        states.put(new Pair<>(spaceUno, "SPACE"), ignore);
+        states.put(new Pair<>(spaceUno, "OPEN_BLOCK"), openBlock);
+        states.put(new Pair<>(spaceUno, "END_BLOCK"), endBlock);
+
+        states.put(new Pair<>(ignore, "OPEN_BLOCK"), openBlock);
+        states.put(new Pair<>(ignore, "END_BLOCK"), endBlock);
+        states.put(new Pair<>(ignore, "SPACE"), ignore);
 
         states.put(new Pair<>(openBlock, "END_BLOCK"), endBlock);
         states.put(new Pair<>(openBlock, "OPEN_BLOCK"), openBlock);
+        states.put(new Pair<>(openBlock, "SPACE"), ignore);
 
         states.put(new Pair<>(endBlock, "OPEN_BLOCK"), openBlock);
         states.put(new Pair<>(endBlock, "END_BLOCK"), endBlock);
+        states.put(new Pair<>(endBlock, "SPACE"), ignore);
     }
 
     public State getStartState() {
