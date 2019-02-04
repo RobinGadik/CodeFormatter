@@ -12,6 +12,7 @@ public class CharTokenMap {
 
         //typeMap.put(";","END_CMD");
         //typeMap.put("\n","END_LINE");
+        //typeMap.put("\'","UNO_QUOTE");
         typeMap.put("{","OPEN_BLOCK");
         typeMap.put("}","END_BLOCK");
         typeMap.put("\"","QUOTE");

@@ -1,6 +1,7 @@
 package it.sevenbits.lexers.lexems;
 
 import it.sevenbits.lexers.tokens.IToken;
+import it.sevenbits.lexers.tokens.Token;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class SpaceCombiner implements ILexemCombiner {
     }
 
     public void execute() {
-        if (0 < tokens.size() && "USER_DEFINE" == tokens.get(tokens.size() - 1).getType()) {
+        if (0 < tokens.size() ) {
             tokens.add(buff.get(0));
         }
         buff.remove(0);
