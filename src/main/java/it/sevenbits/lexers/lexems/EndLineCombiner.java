@@ -5,12 +5,12 @@ import it.sevenbits.lexers.tokens.Token;
 
 import java.util.List;
 
-public class EndBlockCombiner implements ILexemCombiner {
+public class EndLineCombiner implements ILexemCombiner {
 
     private List<IToken> tokens;
     private List<IToken> buff;
 
-    public EndBlockCombiner(List<IToken> tokens, List<IToken> buff) {
+    public EndLineCombiner(List<IToken> tokens, List<IToken> buff) {
         this.tokens = tokens;
         this.buff = buff;
     }
