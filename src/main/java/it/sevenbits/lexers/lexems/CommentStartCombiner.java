@@ -16,10 +16,7 @@ public class CommentStartCombiner implements ILexemCombiner {
     }
 
     public void execute() {
-        System.out.println(tokens);
-        System.out.println(buff);
         tokens.add(buff.get(0));
         buff.remove(0);
-
     }
 }
