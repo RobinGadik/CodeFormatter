@@ -1,6 +1,6 @@
 package it.sevenbits.lexers.lexems;
 
-import it.sevenbits.lexers.tokens.IToken;
+import tokens.IToken;
 
 import java.util.List;
 
