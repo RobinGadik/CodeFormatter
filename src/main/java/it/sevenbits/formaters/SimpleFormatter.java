@@ -1,18 +1,18 @@
-package it.sevenbits;
+package it.sevenbits.formaters;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class Formatter {
+public class SimpleFormatter {
 
     List<Function<List<String> , List<String>> > rules;
 
     Map<String,String> literalSwap;
 
-    public String format(String in){
-
+    public String format(String in) {
         List<String> tokens = new ArrayList<>();
         tokens.add(in);
         for(Function< List<String> , List<String> > r:rules) {
@@ -21,57 +21,47 @@ public class Formatter {
 
         String outString = new String();
 
-        for(String str:tokens){
+        for(String str:tokens) {
             outString = outString.concat(str);
         }
 
         return outString;
     }
 
-    public Formatter() {
+    public SimpleFormatter() {
         rules = new ArrayList<>();
         rules.add(
-                (List<String> s)->{
+                (List<String> s) -> {
                     ArrayList<String> tokens = new ArrayList<>();
 
-                    for(String bigString:s){
-                        for(String str:bigString.split(" ")){
-                            tokens.add(str);
-                        }
-
+                    for (String bigString:s) {
+                        Collections.addAll(tokens, bigString.split(" "));
                     }
-
                     return tokens;
                 }
         );
 
         rules.add(
-                (List<String> tokens)->{
-
-
+                (List<String> tokens) -> {
                     ArrayList<String> tokensExpanded = new ArrayList<>();
-
                     // userDefineString for '' and "" and so one
-
-                    for(String token:tokens){
+                    for (String token:tokens) {
                         String temp = new String();
 
-                        for(char c:token.toCharArray()){
+                        for (char c:token.toCharArray()) {
 
-                            if(c == ';' || c == '{' || c == '}'){
-                                if(!temp.isEmpty()){
+                            if (c == ';' || c == '{' || c == '}') {
+                                if (!temp.isEmpty()) {
                                     tokensExpanded.add(temp);
-                                    temp = new String();
+                                    temp = "";
                                 }
                                 tokensExpanded.add(String.valueOf(c));
-                            }
-                            else {
+                            } else {
                                 temp = temp.concat(String.valueOf(c));
                             }
                         }
-                        if(!temp.isEmpty()){
+                        if (!temp.isEmpty()) {
                             tokensExpanded.add(temp);
-                            temp = new String();
                         }
                     }
 
@@ -81,13 +71,12 @@ public class Formatter {
         );
 
         rules.add(
-                (List<String> tokens)->{
-                    int depth=0;
+                (List<String> tokens) -> {
+                    int depth = 0;
                     ArrayList<String> tokensWithSpace = new ArrayList<>();
                     boolean someString = false;
-                    for(String token:tokens) {
+                    for (String token:tokens) {
                         //I don't like that, but....
-
                         if (token.equals("{")) {
                             depth++;
                             tokensWithSpace.add(" ");
@@ -110,7 +99,7 @@ public class Formatter {
                             someString = false;
 
                         } else {
-                            if(!someString){
+                            if (!someString) {
                                 for (int i = 0; i < depth * 4; i++) {
                                     tokensWithSpace.add(" ");
                                 }
@@ -120,9 +109,7 @@ public class Formatter {
                             }
                             tokensWithSpace.add(token);
                         }
-
                     }
-
                     return tokensWithSpace;
                 }
         );
