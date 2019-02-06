@@ -4,10 +4,8 @@ import it.sevenbits.IO.IReader;
 import it.sevenbits.lexers.ILexer;
 import it.sevenbits.lexers.LexerException;
 import it.sevenbits.lexers.lexems.*;
-import it.sevenbits.lexers.sm.State;
-import it.sevenbits.lexers.tokens.CharTokenMap;
-import it.sevenbits.lexers.tokens.IToken;
-import it.sevenbits.lexers.tokens.Token;
+import tokens.CharTokenMap;
+import tokens.IToken;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -148,10 +146,10 @@ public class LexerStateMachine  implements ILexer {
             //System.out.println(tokens);
         }
 
-        System.out.println(tokens.size());
+        /*System.out.println(tokens.size());
         for (IToken t : tokens) {
-            System.out.println(t.toString());
-        }
+            //System.out.println(t.toString());
+        }*/
 
 
     }
@@ -159,7 +157,7 @@ public class LexerStateMachine  implements ILexer {
 
     @Override
     public IToken nextToken() throws LexerException {
-        if (tokenNumber < tokenNumber) {
+        if (tokenNumber < tokens.size()) {
             return tokens.get(tokenNumber++);
         } else {
             throw new LexerException("End of tokens");
@@ -168,6 +166,6 @@ public class LexerStateMachine  implements ILexer {
 
     @Override
     public boolean hasNextToken() {
-        return tokenNumber < tokenNumber;
+        return tokenNumber < tokens.size();
     }
 }

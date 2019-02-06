@@ -1,6 +1,6 @@
 package it.sevenbits.lexers;
 
-import it.sevenbits.lexers.tokens.IToken;
+import tokens.IToken;
 
 /**
  * lexems token splitter
