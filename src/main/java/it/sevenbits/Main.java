@@ -45,6 +45,42 @@ public class Main {
         }
 
         System.out.println(r.toString());
+        someCode = new StringReader(r.toString());
+        r = new StringWritter();
+
+        try {
+            formatter.format(someCode, r);
+        } catch (LexerException e1) {
+            e1.printStackTrace();
+        }
+
+        System.out.println(r.toString());
+
+
+        someCode = new StringReader(r.toString());
+        r = new StringWritter();
+
+        try {
+            formatter.format(someCode, r);
+        } catch (LexerException e1) {
+            e1.printStackTrace();
+        }
+
+        System.out.println(r.toString());
+
+
+        someCode = new StringReader(r.toString());
+        r = new StringWritter();
+
+        try {
+            formatter.format(someCode, r);
+        } catch (LexerException e1) {
+            e1.printStackTrace();
+        }
+
+        System.out.println(r.toString());
+
+
         r = new StringWritter();
         someCode1 = new StringReader("{{{{}}}}");
 
@@ -55,5 +91,16 @@ public class Main {
         }
 
         System.out.println(r.toString());
+        someCode1 = new StringReader(r.toString());
+        r = new StringWritter();
+
+        try {
+            formatter.format(someCode1, r);
+        } catch (LexerException e1) {
+            e1.printStackTrace();
+        }
+
+        System.out.println(r.toString());
     }
+
 }

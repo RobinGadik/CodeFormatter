@@ -15,7 +15,7 @@ public class SpaceCombiner implements ILexemCombiner {
     }
 
     public void execute() {
-        if (0 < tokens.size() ) {
+        if (0 < tokens.size() && tokens.get(tokens.size() - 1).getType().equals("USER_DEFINE")) {
             tokens.add(buff.get(0));
         }
         buff.remove(0);

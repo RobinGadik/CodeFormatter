@@ -21,6 +21,7 @@ public class AddFormatterCmd implements IFormatterCmd {
 
     @Override
     public void execute() throws IOException {
+        //outSb.append(dic.getTabString());
         outSb.append(buff.get(0).getText());
         buff.remove(0);
     }
