@@ -1,4 +1,4 @@
-package it.sevenbits.lexers.tokens;
+package tokens;
 
 /**
  * Lexama token
