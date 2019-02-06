@@ -7,8 +7,8 @@ import tokens.IToken;
  */
 public interface ILexer {
     /**
-     * @return
-     * @throws LexerException
+     * @return lexeme token
+     * @throws LexerException if some fail in divide to tokens
      */
     IToken nextToken() throws LexerException;
 

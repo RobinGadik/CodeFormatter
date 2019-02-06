@@ -2,12 +2,18 @@ package it.sevenbits.IO;
 
 import java.io.IOException;
 
+/**
+ * Parse String to chars
+ */
 public class StringReader implements IReader {
 
-    String in;
-    int i=0;
+    private String in;
+    private int i = 0;
 
-    public StringReader(String in) {
+    /**
+     * @param in String to parse
+     */
+    public StringReader(final String in) {
         this.in = in;
         i = 0;
     }

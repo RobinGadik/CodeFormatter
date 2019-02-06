@@ -1,6 +1,11 @@
 package it.sevenbits;
 
-import it.sevenbits.IO.*;
+import it.sevenbits.IO.FileReader;
+import it.sevenbits.IO.FileWritter;
+import it.sevenbits.IO.IReader;
+import it.sevenbits.IO.IWritter;
+import it.sevenbits.IO.StringReader;
+import it.sevenbits.IO.StringWritter;
 import it.sevenbits.formaters.IFormatter;
 import it.sevenbits.formaters.sm.StateMachineFormatter;
 import it.sevenbits.lexers.ILexer;
@@ -10,20 +15,31 @@ import it.sevenbits.lexers.sm.LexerStateMachine;
 
 import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+/**
+ * demo class
+ */
+final class Main {
+
+    private Main() {
+    }
+
+    /**
+     * @param args not using
+     * @throws IOException if IO fails
+     */
+    static void main(final String[] args) throws IOException {
         // Prints "Hello, World" to the terminal window.
         //System.out.println(" CHE MI CHAN GI ");
         FileReader in = new FileReader("pom.xml");
         FileWritter out = new FileWritter("pom1.xml");
-        while(in.hasNext()) {
+        while (in.hasNext()) {
             out.write(in.read());
         }
 
         IReader e = new StringReader("12345667890абсвгдеЁabcdefg");
         IWritter r = new StringWritter();
 
-        while(e.hasNext()) {
+        while (e.hasNext()) {
             r.write(e.read());
         }
         System.out.println(r.toString());

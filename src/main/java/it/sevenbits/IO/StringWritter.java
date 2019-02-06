@@ -2,15 +2,26 @@ package it.sevenbits.IO;
 
 import java.io.IOException;
 
+/**
+ * Why double t? cause of!
+ * Use to write to String
+ * Use toString for take result
+ */
 public class StringWritter implements IWritter {
 
-    StringBuilder out;
+    private StringBuilder out;
 
+    /**
+     * default use new StringBuilder
+     */
     public StringWritter() {
         this.out = new StringBuilder();
     }
 
-    public StringWritter(StringBuilder out) {
+    /**
+     * @param out StringBuilder if you want to use own
+     */
+    public StringWritter(final StringBuilder out) {
         this.out = out;
     }
 
@@ -20,7 +31,7 @@ public class StringWritter implements IWritter {
     }
 
     @Override
-    public void write(char c) throws IOException {
+    public void write(final char c) throws IOException {
         out.append(c);
     }
 }

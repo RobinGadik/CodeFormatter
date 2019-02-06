@@ -4,12 +4,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * symbols file reader
+ */
 public class FileReader implements IReader {
 
     private File file;
     private Scanner in;
 
-    public FileReader(String filename) throws FileNotFoundException {
+    /**
+     * @param filename path to file
+     * @throws FileNotFoundException no file if
+     */
+    public FileReader(final String filename) throws FileNotFoundException {
         file = new File(filename);
         in = new Scanner(file);
         in.useDelimiter("");

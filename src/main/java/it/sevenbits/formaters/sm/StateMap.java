@@ -3,12 +3,16 @@ package it.sevenbits.formaters.sm;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SMF state map
+ */
 class StateMap {
     private final State defaultState = new State("NEW_LINE");
-
-
     private final Map<Pair<State, String>, State> states;
 
+    /**
+     * default map
+     */
     StateMap() {
         states = new HashMap<>();
 
@@ -47,10 +51,18 @@ class StateMap {
         states.put(new Pair<>(endBlock, "END_BLOCK"), endBlock);
     }
 
+    /**
+     * @return start state
+     */
     State getStartState() {
         return defaultState;
     }
 
+    /**
+     * @param state now state
+     * @param signal input lexeme type
+     * @return state for that lexem
+     */
     State getNextState(final State state, final String signal) {
         return states.getOrDefault(new Pair<>(state, signal), defaultState);
     }

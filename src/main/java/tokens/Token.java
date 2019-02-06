@@ -3,11 +3,15 @@ package tokens;
 /**
  * Lexama token
  */
-public class Token implements IToken{
+public class Token implements IToken {
     private String text;
     private String type;
 
-    public Token(String text, String type) {
+    /**
+     * @param text token text
+     * @param type token type
+     */
+    public Token(final String text, final String type) {
         this.text = text;
         this.type = type;
     }

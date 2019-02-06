@@ -1,7 +1,13 @@
 package it.sevenbits.lexers;
 
+/**
+ * if some specific fail
+ */
 public class LexerException extends Exception {
-    public LexerException(String s) {
+    /**
+     * @param s message
+     */
+    public LexerException(final String s) {
         super(s);
     }
 }

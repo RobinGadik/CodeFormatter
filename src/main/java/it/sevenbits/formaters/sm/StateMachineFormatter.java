@@ -3,7 +3,12 @@ package it.sevenbits.formaters.sm;
 import it.sevenbits.IO.IReader;
 import it.sevenbits.IO.IWritter;
 import it.sevenbits.formaters.IFormatter;
-import it.sevenbits.formaters.cmds.*;
+import it.sevenbits.formaters.cmds.AddFormatterCmd;
+import it.sevenbits.formaters.cmds.EndBlockFormatterCmd;
+import it.sevenbits.formaters.cmds.IFormatterCmd;
+import it.sevenbits.formaters.cmds.NewLineFormatterCmd;
+import it.sevenbits.formaters.cmds.OpenBlockFormatterCmd;
+import it.sevenbits.formaters.cmds.OpenMonoBlockFormatterCmd;
 import it.sevenbits.lexers.ILexer;
 import it.sevenbits.lexers.ILexerFactory;
 import it.sevenbits.lexers.LexerException;
@@ -11,8 +16,14 @@ import tokens.IToken;
 import tokens.Token;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * State machone based Formatter
+ */
 public class StateMachineFormatter  implements IFormatter {
 
     private ILexerFactory lexerFactory;
@@ -35,6 +46,9 @@ public class StateMachineFormatter  implements IFormatter {
         cmds.put(new State("FULL_LINE"), new NewLineFormatterCmd(outSb, buff, parameters));
     }
 
+    /**
+     * @param lexerFactory for ILexer get for .format
+     */
     public StateMachineFormatter(final ILexerFactory lexerFactory) {
         this.lexerFactory = lexerFactory;
         stateMap = new StateMap();
@@ -44,7 +58,11 @@ public class StateMachineFormatter  implements IFormatter {
         setCmds();
     }
 
-    public StateMachineFormatter(ILexerFactory lexerFactory, SMFDictParams parameters) {
+    /**
+     * @param lexerFactory for ILexer get for .format
+     * @param parameters if you want to customize
+     */
+    public StateMachineFormatter(final ILexerFactory lexerFactory, final SMFDictParams parameters) {
         this.lexerFactory = lexerFactory;
         this.parameters = parameters;
         stateMap = new StateMap();

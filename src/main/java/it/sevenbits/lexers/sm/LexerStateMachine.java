@@ -3,7 +3,17 @@ package it.sevenbits.lexers.sm;
 import it.sevenbits.IO.IReader;
 import it.sevenbits.lexers.ILexer;
 import it.sevenbits.lexers.LexerException;
-import it.sevenbits.lexers.lexems.*;
+import it.sevenbits.lexers.lexems.CloneCombiner;
+import it.sevenbits.lexers.lexems.CommentStartCombiner;
+import it.sevenbits.lexers.lexems.EndBlockCombiner;
+import it.sevenbits.lexers.lexems.EndLineCombiner;
+import it.sevenbits.lexers.lexems.ILexemCombiner;
+import it.sevenbits.lexers.lexems.IgnoreCombiner;
+import it.sevenbits.lexers.lexems.InlineCommentCombiner;
+import it.sevenbits.lexers.lexems.MultilineCommentCombiner;
+import it.sevenbits.lexers.lexems.OpenBlockCombiner;
+import it.sevenbits.lexers.lexems.SpaceCombiner;
+import it.sevenbits.lexers.lexems.StringLiteralCombiner;
 import tokens.CharTokenMap;
 import tokens.IToken;
 
@@ -26,7 +36,11 @@ public class LexerStateMachine  implements ILexer {
     private StateMap stateMap = new StateMap();
     private Map<Pair<String, String>, ILexemCombiner> combs;
 
-    public LexerStateMachine(IReader in) throws IOException {
+    /**
+     * @param in IReader input
+     * @throws IOException IReader fail
+     */
+    public LexerStateMachine(final IReader in) throws IOException {
         tokenNumber = 0;
         tokens = new LinkedList<>();
         charsTokens = new LinkedList<>();
@@ -37,7 +51,6 @@ public class LexerStateMachine  implements ILexer {
         while (in.hasNext()) {
             charsTokens.add(charsMap.getToken(in.read()));
         }
-        //TODO combs add
         combs.put(new Pair<>("CLONE", "CUSTOM"), new CloneCombiner(tokens, buff));
         combs.put(new Pair<>("CLONE", "OPEN_BLOCK"), new OpenBlockCombiner(tokens, buff));
         combs.put(new Pair<>("CLONE", "END_BLOCK"), new EndBlockCombiner(tokens, buff));

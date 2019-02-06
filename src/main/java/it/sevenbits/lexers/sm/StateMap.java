@@ -3,12 +3,16 @@ package it.sevenbits.lexers.sm;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SM LEXER state map
+ */
 class StateMap {
     private final State defaultState = new State("CLONE");
-
-
     private final Map<Pair<State, String>, State> states;
 
+    /**
+     * default
+     */
     StateMap() {
         states = new HashMap<>();
         //State start = new State("START");
@@ -33,7 +37,7 @@ class StateMap {
         states.put(new Pair<>(defaultState, "END_BLOCK"), endBlock);
         states.put(new Pair<>(defaultState, "SPACE"), spaceUno);
         states.put(new Pair<>(defaultState, "QUOTE"), stringLiteral);
-        states.put(new Pair<>(defaultState, "SLASH"), slash);;
+        states.put(new Pair<>(defaultState, "SLASH"), slash);
         states.put(new Pair<>(defaultState, "END_LINE"), endLine);
 
         states.put(new Pair<>(stringLiteral, "OPEN_BLOCK"), stringLiteral);
@@ -123,11 +127,19 @@ class StateMap {
         states.put(new Pair<>(endBlock, "END_LINE"), endLine);
     }
 
-    public State getStartState() {
+    /**
+     * @return default state for lexer
+     */
+    State getStartState() {
         return defaultState;
     }
 
-    public State getNextState(final State state, final String signal) {
+    /**
+     * @param state now state
+     * @param signal next token type
+     * @return state for next step
+     */
+    State getNextState(final State state, final String signal) {
         return states.getOrDefault(new Pair<>(state, signal), defaultState);
     }
 }

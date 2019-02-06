@@ -3,37 +3,44 @@ package it.sevenbits.formaters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * old rule's based formatter
+ */
 public class SimpleFormatter {
 
-    List<Function<List<String> , List<String>> > rules;
+    private List<Function<List<String> , List<String>> > rules;
+    //private Map<String, String> literalSwap;
 
-    Map<String,String> literalSwap;
-
-    public String format(String in) {
+    /**
+     * @param in String to format
+     * @return formated in
+     */
+    public String format(final String in) {
         List<String> tokens = new ArrayList<>();
         tokens.add(in);
-        for(Function< List<String> , List<String> > r:rules) {
+        for (Function< List<String> , List<String> > r:rules) {
             tokens = r.apply(tokens);
         }
 
-        String outString = new String();
+        String outString = "";
 
-        for(String str:tokens) {
+        for (String str:tokens) {
             outString = outString.concat(str);
         }
 
         return outString;
     }
 
+    /**
+     * base rule's constructor
+     */
     public SimpleFormatter() {
         rules = new ArrayList<>();
         rules.add(
                 (List<String> s) -> {
                     ArrayList<String> tokens = new ArrayList<>();
-
                     for (String bigString:s) {
                         Collections.addAll(tokens, bigString.split(" "));
                     }
@@ -46,10 +53,8 @@ public class SimpleFormatter {
                     ArrayList<String> tokensExpanded = new ArrayList<>();
                     // userDefineString for '' and "" and so one
                     for (String token:tokens) {
-                        String temp = new String();
-
+                        String temp = "";
                         for (char c:token.toCharArray()) {
-
                             if (c == ';' || c == '{' || c == '}') {
                                 if (!temp.isEmpty()) {
                                     tokensExpanded.add(temp);
@@ -64,8 +69,6 @@ public class SimpleFormatter {
                             tokensExpanded.add(temp);
                         }
                     }
-
-
                     return tokensExpanded;
                 }
         );
@@ -75,7 +78,7 @@ public class SimpleFormatter {
                     int depth = 0;
                     ArrayList<String> tokensWithSpace = new ArrayList<>();
                     boolean someString = false;
-                    for (String token:tokens) {
+                    for (String token : tokens) {
                         //I don't like that, but....
                         if (token.equals("{")) {
                             depth++;
@@ -88,7 +91,7 @@ public class SimpleFormatter {
                             depth--;
                             tokensWithSpace.add(token);
                             tokensWithSpace.add("\n");
-                            for (int i = 0; i < depth * 4; i++) {
+                            for (int i = 0; i < depth + depth + depth + depth ; i++) {
                                 tokensWithSpace.add(" ");
                             }
                             someString = false;
@@ -100,7 +103,7 @@ public class SimpleFormatter {
 
                         } else {
                             if (!someString) {
-                                for (int i = 0; i < depth * 4; i++) {
+                                for (int i = 0 ; i < depth + depth + depth + depth ; i++) {
                                     tokensWithSpace.add(" ");
                                 }
                                 someString = true;

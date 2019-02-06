@@ -1,7 +1,11 @@
 package it.sevenbits.formaters.cmds;
 
-import java.io.IOException;
-
+/**
+ * formatter comand interfacfe
+ */
 public interface IFormatterCmd {
-    void execute() throws IOException;
+    /**
+     * command do
+     */
+    void execute();
 }

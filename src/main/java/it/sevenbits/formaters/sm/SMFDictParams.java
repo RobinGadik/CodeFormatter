@@ -3,11 +3,14 @@ package it.sevenbits.formaters.sm;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * base params fo SMF
+ */
 public class SMFDictParams {
-    private int tabSize = 4;
-    private String tabString = " ";
-    private int tabCount = 0;
-    private String endLine = "\n";
+    private int tabSize;
+    private String tabString;
+    private int tabCount;
+    private String endLine;
     private Set<String> userDefine;
     private Set<String> ignore;
 
@@ -15,7 +18,7 @@ public class SMFDictParams {
         return ignore;
     }
 
-    public void setTabCount(int tabCount) {
+    public void setTabCount(final int tabCount) {
         this.tabCount = tabCount;
     }
 
@@ -39,7 +42,16 @@ public class SMFDictParams {
         return userDefine;
     }
 
-    public SMFDictParams(int tabSize, String tabString, int tabCount, String endLine, Set<String> userDefine, Set<String> ignore) {
+    /**
+     * @param tabSize how mash tabString need to one tab
+     * @param tabString which use for tab
+     * @param tabCount now tabs
+     * @param endLine endline string
+     * @param userDefine Set of lexemes type's, used as user_define lexem
+     * @param ignore set of ignore lexemes
+     */
+    public SMFDictParams(final int tabSize, final String tabString, final int tabCount,
+                         final String endLine, final Set<String> userDefine, final Set<String> ignore) {
         this.tabSize = tabSize;
         this.tabString = tabString;
         this.tabCount = tabCount;
@@ -48,7 +60,14 @@ public class SMFDictParams {
         this.ignore = ignore;
     }
 
+    /**
+     * default start paramets
+     */
     public SMFDictParams() {
+        tabSize = 2 * 2;
+        String tabString = " ";
+        tabCount = 0;
+        endLine = "\n";
         userDefine = new HashSet<>();
         userDefine.add("SLASH");
         userDefine.add("SPACE");
