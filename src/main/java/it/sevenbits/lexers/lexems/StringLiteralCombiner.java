@@ -30,10 +30,9 @@ public class StringLiteralCombiner implements ILexemCombiner {
         if (tokens.get(tokens.size() - 1).getType().equals("STRING_LITERAL")) {
             tokens.set(tokens.size() - 1,
                     new Token(tokens.get(tokens.size() - 1).getText() + buff.get(0).getText(), "STRING_LITERAL"));
-            buff.remove(0);
         } else {
             tokens.add(new Token(buff.get(0).getText(), "STRING_LITERAL"));
-            buff.remove(0);
         }
+        buff.remove(0);
     }
 }
