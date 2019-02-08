@@ -20,7 +20,12 @@ public class StringReader implements IReader {
 
     @Override
     public char read() throws IOException {
-        return in.charAt(i++);
+        if (i < in.length()) {
+            return in.charAt(i++);
+        } else {
+            throw new IOException("End of StringReader input");
+        }
+
     }
 
     @Override
