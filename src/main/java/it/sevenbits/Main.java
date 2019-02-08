@@ -27,7 +27,7 @@ final class Main {
      * @param args not using
      * @throws IOException if IO fails
      */
-    static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws IOException {
         // Prints "Hello, World" to the terminal window.
         //System.out.println(" CHE MI CHAN GI ");
         FileReader in = new FileReader("pom.xml");
@@ -44,11 +44,8 @@ final class Main {
         }
         System.out.println(r.toString());
 
-        IReader someCode = new StringReader(" sad  f\" dfgg \";{f{} / /s;;  f }fs \'\n\' d g{} ");
-        ILexer lex = new LexerStateMachine(someCode);
-
-        IReader someCode1 = new StringReader(" {//sdfgdfh2354\n} /*sd\n*\n***/");
-        ILexer lex1 = new LexerStateMachine(someCode1);
+        IReader someCode;
+        IReader someCode1;
 
         IFormatter formatter = new StateMachineFormatter(new LexerStateMachineFactory());
         r = new StringWritter();
