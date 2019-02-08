@@ -65,7 +65,7 @@ public class SMFDictParams {
      */
     public SMFDictParams() {
         tabSize = 2 * 2;
-        String tabString = " ";
+        tabString = " ";
         tabCount = 0;
         endLine = "\n";
         userDefine = new HashSet<>();
